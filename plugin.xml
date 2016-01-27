@@ -10,7 +10,11 @@
     <preference name="WECHATAPPID" />
     <preference name="WECHATAPPSECRET" />
     <preference name="QQAPPID" />
+    <preference name="QQAPPKEY" />
     <preference name="QQURLSCHEME" />
+    <preference name="WBAPPKEY" />
+    <preference name="WBAPPSECRET" />
+    <preference name="WBREDIRECTURL" />
 
     <!--require cordova version -->
     <engines>
@@ -30,6 +34,9 @@
             <preference name="QQAPPID" value="$QQAPPID"/>
             <preference name="QQAPPKEY" value="$QQAPPKEY"/>
             <preference name="QQURLSCHEME" value="$QQURLSCHEME"/>
+            <preference name="WBAPPKEY" value="$WBAPPKEY"/>
+            <preference name="WBAPPSECRET" value="$WBAPPSECRET"/>
+            <preference name="WBREDIRECTURL" value="$WBREDIRECTURL"/>
         </config-file>
 
         <config-file target="*-Info.plist" parent="CFBundleURLTypes">
@@ -44,6 +51,7 @@
                         <string>$WECHATAPPID</string>
                         <string>$QQURLSCHEME</string>
                         <string>tencent$QQAPPID</string>
+                        <string>wb$WBAPPKEY</string>
                     </array>
                 </dict>
             </array>
@@ -105,12 +113,19 @@
         <header-file src="src/ios/ShareSDK/Extend/WeChatSDK/WXApi.h" />
         <header-file src="src/ios/ShareSDK/Extend/WeChatSDK/WXApiObject.h" />
         <source-file src="src/ios/ShareSDK/Extend/WeChatSDK/libWeChatSDK.a" framework="true" />
-        <resource-file src="src/ios/ShareSDK/UI/ShareSDKFlatShareViewUI.bundle" />
-        <resource-file src="src/ios/ShareSDK/Core/zh-Hans.lproj/ShareSDKLocalizable.strings" />
-        <resource-file src="src/ios/ShareSDK/Core/Resource.bundle" />
         <resource-file src="src/ios/ShareSDK/Extend/QQConnectSDK/TencentOpenApi_IOS_Bundle.bundle" />
         <!-- Sina Official -->
         <header-file src="src/ios/ShareSDK/Extend/SinaWeiboSDK/WeiboSDK.h" />
+        <header-file src="src/ios/ShareSDK/Extend/SinaWeiboSDK/WeiboUser.h" />
+        <header-file src="src/ios/ShareSDK/Extend/SinaWeiboSDK/WeiboSDK+Statistics.h" />
+        <header-file src="src/ios/ShareSDK/Extend/SinaWeiboSDK/WBSDKRelationshipButton.h" />
+        <header-file src="src/ios/ShareSDK/Extend/SinaWeiboSDK/WBSDKCommentButton.h" />
+        <header-file src="src/ios/ShareSDK/Extend/SinaWeiboSDK/WBSDKBasicButton.h" />
+        <header-file src="src/ios/ShareSDK/Extend/SinaWeiboSDK/WBHttpRequest.h" />
+        <header-file src="src/ios/ShareSDK/Extend/SinaWeiboSDK/WBHttpRequest+WeiboUser.h" />
+        <header-file src="src/ios/ShareSDK/Extend/SinaWeiboSDK/WBHttpRequest+WeiboToken.h" />
+        <header-file src="src/ios/ShareSDK/Extend/SinaWeiboSDK/WBHttpRequest+WeiboShare.h" />
+        <header-file src="src/ios/ShareSDK/Extend/SinaWeiboSDK/WBHttpRequest+WeiboGame.h" />
         <source-file src="src/ios/ShareSDK/Extend/SinaWeiboSDK/libWeiboSDK.a" framework="true" />
         <resource-file src="src/ios/ShareSDK/Extend/SinaWeiboSDK/WeiboSDK.bundle" />
         <!-- ShareSDK -->
@@ -122,26 +137,12 @@
         <framework src="src/ios/ShareSDK/Core/ShareSDKCoreService.framework" custom="true"/>
         <framework src="src/ios/ShareSDK/Core/AGCommon.framework" custom="true"/>
         <framework src="src/ios/ShareSDK/Core/MOBFoundation.framework" custom="true"/>
+        <resource-file src="src/ios/ShareSDK/UI/ShareSDKFlatShareViewUI.bundle" />
+        <resource-file src="src/ios/ShareSDK/Core/zh-Hans.lproj/ShareSDKLocalizable.strings" />
+        <resource-file src="src/ios/ShareSDK/Core/Resource.bundle" />
         <framework src="src/ios/ShareSDK/UI/ShareSDKShareActionSheet.framework" custom="true"/>
         <framework src="src/ios/ShareSDK/UI/ShareSDKFlatShareViewUI.framework" custom="true"/>
         <framework src="src/ios/ShareSDK/Extend/QQConnectSDK/TencentOpenAPI.framework" custom="true"/>
-
-        <!-- 
-
-        <framework src="src/ios/libraries/MOBFoundation.framework" custom="true" />
-        <framework src="src/ios/libraries/ShareSDK.bundle" custom="true" />
-        <framework src="src/ios/libraries/ShareSDK.framework" custom="true" />
-        <framework src="src/ios/libraries/ShareSDKConnector.framework" custom="true" />
-        <framework src="src/ios/libraries/ShareSDKExtension.framework" custom="true" />
-        <framework src="src/ios/libraries/ShareSDKUI.framework" custom="true" />
-        <framework src="src/ios/libraries/ShareSDKUI.bundle" custom="true" />
-        <framework src="src/ios/libraries/extends/QQSDK/TencentOpenAPI.framework" custom="true" />
-        <framework src="src/ios/libraries/extends/QQSDK/TencentOpenApi_IOS_Bundle.bundle" custom="true" />
-        <framework src="src/ios/libraries/extends/SinaWeiboSDK/WeiboSDK.bundle" custom="true" />
-        <framework src="src/ios/libraries/extends/SinaWeiboSDK" custom="true" />
-
-        <header-file src="src/ios/libraries/extends/WeChatSDK/WXApi.h" />
-        <header-file src="src/ios/libraries/extends/WeChatSDK/WXApiObject.h" /> -->
 
     </platform>
 </plugin>
