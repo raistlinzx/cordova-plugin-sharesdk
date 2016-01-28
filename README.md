@@ -1,6 +1,5 @@
 
 # 安装
-下载源码
 ```sh
 ionic plugin add http://git.qiyestore.com/zhuanmi/cordova-plugin-sharesdk.git \
 	--variable SHARESDKAPPKEY=f2629488c78c \
