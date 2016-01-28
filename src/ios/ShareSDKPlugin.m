@@ -57,7 +57,7 @@
     }
 }
 
-- (void)send:(CDVInvokedUrlCommand*)command {
+- (void)share:(CDVInvokedUrlCommand*)command {
     
     NSString* title = [command.arguments objectAtIndex:0];
     NSString* text = [command.arguments objectAtIndex:1];
