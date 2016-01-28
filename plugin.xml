@@ -23,6 +23,325 @@
     <js-module src="www/ShareSDKPlugin.js" name="ShareSDKPlugin">
         <clobbers target="ShareSDKPlugin" />
     </js-module>
+    <platform name="android">
+        <config-file target="config.xml" parent="/*">
+            <feature name="ShareSDK">
+                <param name="android-package" value="com.ryanzx.cordova.plugin.sharesdk.ShareSDKPlugin" />
+            </feature>
+        </config-file>
+        <config-file target="AndroidManifest.xml" parent="/*">
+            <uses-permission android:name="android.permission.INTERNET" />
+            <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+            <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+            <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+            <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+            <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+            <uses-permission android:name="android.permission.MANAGE_ACCOUNTS"/>
+            <uses-permission android:name="android.permission.GET_ACCOUNTS"/>
+        </config-file>
+
+        <!-- Plugin Source -->
+        <source-file src="src/android/com/ryanzx/cordova/plugin/sharesdk/ShareSDKPlugin.java" target-dir="src/com/ryanzx/cordova/plugin/sharesdk" />
+
+        <!-- ShareSDK Config Xml -->
+        <source-file src="src/android/ShareSDK.xml" target-dir="assets" />
+
+        <config-file target="assets/ShareSDK.xml" parent="/DevInfor">
+            <ShareSDK AppKey = "$SHARESDKAPPKEY"/> <!-- 修改成你在sharesdk后台注册的应用的appkey"-->
+            
+            <!-- ShareByAppClient标识是否使用微博客户端分享，默认是false -->
+            <SinaWeibo
+                Id="1"
+                SortId="1"
+                AppKey="$WBAPPKEY"
+                AppSecret="$WBAPPSECRET"
+                RedirectUrl="$WBREDIRECTURL"
+                ShareByAppClient="false"
+                Enable="true" />
+
+            <!-- ShareByAppClient标识是否使用微博客户端分享，默认是false -->
+            <QZone
+                Id="3"
+                SortId="5"
+                AppId="$QQAPPID"
+                AppKey="$QQAPPKEY"
+                ShareByAppClient="false"
+                Enable="true" />
+         
+            <Wechat
+                Id="4"
+                SortId="2"
+                AppId="$WECHATAPPID"
+                AppSecret="$WECHATAPPSECRET"
+                BypassApproval="false"
+                Enable="true" />
+            
+            <WechatMoments
+                Id="5"
+                SortId="3"
+                AppId="$WECHATAPPID"
+                AppSecret="$WECHATAPPSECRET"
+                BypassApproval="false"
+                Enable="true" />
+                
+            <WechatFavorite
+                Id="6"
+                SortId="6"
+                AppId="$WECHATAPPID"
+                AppSecret="$WECHATAPPSECRET"
+                Enable="false" />
+            
+            <!-- ShareByAppClient标识是否使用微博客户端分享，默认是false -->
+            <QQ
+                Id="7"
+                SortId="4"
+                AppId="$QQAPPID"
+                AppKey="$QQAPPKEY"
+                ShareByAppClient="true"
+                Enable="true" />
+        </config-file>
+
+
+        <config-file target="AndroidManifest.xml" parent="/manifest/application">
+            <activity
+                android:name="com.mob.tools.MobUIShell"
+                android:theme="@android:style/Theme.Translucent.NoTitleBar"
+                android:configChanges="keyboardHidden|orientation|screenSize"
+                android:screenOrientation="portrait"
+                android:windowSoftInputMode="stateHidden|adjustResize" >
+
+                <intent-filter>
+                    <data android:scheme="tencent$QQAPPID" />
+                    <action android:name="android.intent.action.VIEW" />
+                    <category android:name="android.intent.category.BROWSABLE" />
+                    <category android:name="android.intent.category.DEFAULT" />
+                </intent-filter>
+
+                <!-- 调用新浪原生SDK，需要注册的回调activity -->
+                <intent-filter>
+                    <action android:name="com.sina.weibo.sdk.action.ACTION_SDK_REQ_ACTIVITY" />
+                    <category android:name="android.intent.category.DEFAULT" />
+                </intent-filter>
+            </activity>
+
+            <activity
+                android:name=".wxapi.WXEntryActivity"
+                android:theme="@android:style/Theme.Translucent.NoTitleBar"
+                android:configChanges="keyboardHidden|orientation|screenSize"
+                android:exported="true"
+                android:screenOrientation="portrait" /> 
+        </config-file>
+
+        <!-- ShareSDK Libs -->
+        <lib-file src="src/android/ShareSDK/libs/MobCommons.jar"/>
+        <lib-file src="src/android/ShareSDK/libs/MobTools.jar"/>
+        <lib-file src="src/android/ShareSDK/libs/ShareSDK-Core-2.6.6.jar"/>
+        <lib-file src="src/android/ShareSDK/libs/ShareSDK-QQ-2.6.6.jar"/>
+        <lib-file src="src/android/ShareSDK/libs/ShareSDK-QZone-2.6.6.jar"/>
+        <lib-file src="src/android/ShareSDK/libs/ShareSDK-SinaWeibo-2.6.6.jar"/>
+        <lib-file src="src/android/ShareSDK/libs/ShareSDK-Wechat-2.6.6.jar"/>
+        <lib-file src="src/android/ShareSDK/libs/ShareSDK-Wechat-Core-2.6.6.jar"/>
+        <lib-file src="src/android/ShareSDK/libs/ShareSDK-Wechat-Favorite-2.6.6.jar"/>
+        <lib-file src="src/android/ShareSDK/libs/ShareSDK-Wechat-Moments-2.6.6.jar"/>
+
+        <!-- ShareSDK Sources -->
+        <source-file src="src/android/ShareSDK/src/cn/sharesdk/onekeyshare/CustomerLogo.java" target-dir="src/cn/sharesdk/onekeyshare" />
+        <source-file src="src/android/ShareSDK/src/cn/sharesdk/onekeyshare/EditPageFakeActivity.java" target-dir="src/cn/sharesdk/onekeyshare" />
+        <source-file src="src/android/ShareSDK/src/cn/sharesdk/onekeyshare/FollowerListFakeActivity.java" target-dir="src/cn/sharesdk/onekeyshare" />
+        <source-file src="src/android/ShareSDK/src/cn/sharesdk/onekeyshare/OnekeyShare.java" target-dir="src/cn/sharesdk/onekeyshare" />
+        <source-file src="src/android/ShareSDK/src/cn/sharesdk/onekeyshare/OnekeyShareTheme.java" target-dir="src/cn/sharesdk/onekeyshare" />
+        <source-file src="src/android/ShareSDK/src/cn/sharesdk/onekeyshare/PicViewer.java" target-dir="src/cn/sharesdk/onekeyshare" />
+        <source-file src="src/android/ShareSDK/src/cn/sharesdk/onekeyshare/PlatformListFakeActivity.java" target-dir="src/cn/sharesdk/onekeyshare" />
+        <source-file src="src/android/ShareSDK/src/cn/sharesdk/onekeyshare/ReflectableShareContentCustomizeCallback.java" target-dir="src/cn/sharesdk/onekeyshare" />
+        <source-file src="src/android/ShareSDK/src/cn/sharesdk/onekeyshare/Shake2Share.java" target-dir="src/cn/sharesdk/onekeyshare" />
+        <source-file src="src/android/ShareSDK/src/cn/sharesdk/onekeyshare/ShareContentCustomizeCallback.java" target-dir="src/cn/sharesdk/onekeyshare" />
+        <source-file src="src/android/ShareSDK/src/cn/sharesdk/onekeyshare/ShareCore.java" target-dir="src/cn/sharesdk/onekeyshare" />
+        <source-file src="src/android/ShareSDK/src/cn/sharesdk/onekeyshare/ThemeShareCallback.java" target-dir="src/cn/sharesdk/onekeyshare" />
+
+        <source-file src="src/android/ShareSDK/src/cn/sharesdk/onekeyshare/theme/classic/EditPage.java" target-dir="src/cn/sharesdk/onekeyshare/theme/classic" />
+        <source-file src="src/android/ShareSDK/src/cn/sharesdk/onekeyshare/theme/classic/FollowListPage.java" target-dir="src/cn/sharesdk/onekeyshare/theme/classic" />
+        <source-file src="src/android/ShareSDK/src/cn/sharesdk/onekeyshare/theme/classic/PlatformGridView.java" target-dir="src/cn/sharesdk/onekeyshare/theme/classic" />
+        <source-file src="src/android/ShareSDK/src/cn/sharesdk/onekeyshare/theme/classic/PlatformListPage.java" target-dir="src/cn/sharesdk/onekeyshare/theme/classic" />
+
+        <source-file src="src/android/ShareSDK/src/cn/sharesdk/onekeyshare/theme/skyblue/EditPage.java" target-dir="src/cn/sharesdk/onekeyshare/theme/skyblue" />
+        <source-file src="src/android/ShareSDK/src/cn/sharesdk/onekeyshare/theme/skyblue/FollowListPage.java" target-dir="src/cn/sharesdk/onekeyshare/theme/skyblue" />
+        <source-file src="src/android/ShareSDK/src/cn/sharesdk/onekeyshare/theme/skyblue/PlatformGridViewAdapter.java" target-dir="src/cn/sharesdk/onekeyshare/theme/skyblue" />
+        <source-file src="src/android/ShareSDK/src/cn/sharesdk/onekeyshare/theme/skyblue/PlatformListPage.java" target-dir="src/cn/sharesdk/onekeyshare/theme/skyblue" />
+
+        <!-- ShareSDK Res -->
+        <source-file src="src/android/ShareSDK/res/drawable/ssdk_oks_classic_platform_corners_bg.xml" target-dir="res/drawable" />
+        <source-file src="src/android/ShareSDK/res/drawable/ssdk_oks_skyblue_platform_list_item.xml" target-dir="res/drawable" />
+        <source-file src="src/android/ShareSDK/res/drawable/ssdk_oks_skyblue_platform_list_item_selected.xml" target-dir="res/drawable" />
+        <source-file src="src/android/ShareSDK/res/drawable/ssdk_oks_skyblue_platform_list_selector.xml" target-dir="res/drawable" />
+        
+        <source-file src="src/android/ShareSDK/res/drawable-hdpi/ssdk_oks_ptr_ptr.png" target-dir="res/drawable-hdpi" />
+
+        <source-file src="src/android/ShareSDK/res/drawable-xhdpi/ssdk_auth_title_back.png" target-dir="res/drawable-xhdpi" />
+        <source-file src="src/android/ShareSDK/res/drawable-xhdpi/ssdk_back_arr.png" target-dir="res/drawable-xhdpi" />
+        <source-file src="src/android/ShareSDK/res/drawable-xhdpi/ssdk_logo.png" target-dir="res/drawable-xhdpi" />
+        <source-file src="src/android/ShareSDK/res/drawable-xhdpi/ssdk_oks_auth_follow_cb_chd.png" target-dir="res/drawable-xhdpi" />
+        <source-file src="src/android/ShareSDK/res/drawable-xhdpi/ssdk_oks_auth_follow_cb_unc.png" target-dir="res/drawable-xhdpi" />
+        <source-file src="src/android/ShareSDK/res/drawable-xhdpi/ssdk_oks_auth_title_back.png" target-dir="res/drawable-xhdpi" />
+        <source-file src="src/android/ShareSDK/res/drawable-xhdpi/ssdk_oks_blue_point.png" target-dir="res/drawable-xhdpi" />
+        <source-file src="src/android/ShareSDK/res/drawable-xhdpi/ssdk_oks_btn_back_nor.9.png" target-dir="res/drawable-xhdpi" />
+        <source-file src="src/android/ShareSDK/res/drawable-xhdpi/ssdk_oks_edittext_back.9.png" target-dir="res/drawable-xhdpi" />
+        <source-file src="src/android/ShareSDK/res/drawable-xhdpi/ssdk_oks_img_cancel.png" target-dir="res/drawable-xhdpi" />
+        <source-file src="src/android/ShareSDK/res/drawable-xhdpi/ssdk_oks_light_blue_point.png" target-dir="res/drawable-xhdpi" />
+        <source-file src="src/android/ShareSDK/res/drawable-xhdpi/ssdk_oks_logo_alipay.png" target-dir="res/drawable-xhdpi" />
+        <source-file src="src/android/ShareSDK/res/drawable-xhdpi/ssdk_oks_logo_bluetooth.png" target-dir="res/drawable-xhdpi" />
+        <source-file src="src/android/ShareSDK/res/drawable-xhdpi/ssdk_oks_logo_douban.png" target-dir="res/drawable-xhdpi" />
+        <source-file src="src/android/ShareSDK/res/drawable-xhdpi/ssdk_oks_logo_dropbox.png" target-dir="res/drawable-xhdpi" />
+        <source-file src="src/android/ShareSDK/res/drawable-xhdpi/ssdk_oks_logo_email.png" target-dir="res/drawable-xhdpi" />
+        <source-file src="src/android/ShareSDK/res/drawable-xhdpi/ssdk_oks_logo_evernote.png" target-dir="res/drawable-xhdpi" />
+        <source-file src="src/android/ShareSDK/res/drawable-xhdpi/ssdk_oks_logo_facebook.png" target-dir="res/drawable-xhdpi" />
+        <source-file src="src/android/ShareSDK/res/drawable-xhdpi/ssdk_oks_logo_facebookmessenger.png" target-dir="res/drawable-xhdpi" />
+        <source-file src="src/android/ShareSDK/res/drawable-xhdpi/ssdk_oks_logo_flickr.png" target-dir="res/drawable-xhdpi" />
+        <source-file src="src/android/ShareSDK/res/drawable-xhdpi/ssdk_oks_logo_foursquare.png" target-dir="res/drawable-xhdpi" />
+        <source-file src="src/android/ShareSDK/res/drawable-xhdpi/ssdk_oks_logo_googleplus.png" target-dir="res/drawable-xhdpi" />
+        <source-file src="src/android/ShareSDK/res/drawable-xhdpi/ssdk_oks_logo_instagram.png" target-dir="res/drawable-xhdpi" />
+        <source-file src="src/android/ShareSDK/res/drawable-xhdpi/ssdk_oks_logo_instapaper.png" target-dir="res/drawable-xhdpi" />
+        <source-file src="src/android/ShareSDK/res/drawable-xhdpi/ssdk_oks_logo_kaixin.png" target-dir="res/drawable-xhdpi" />
+        <source-file src="src/android/ShareSDK/res/drawable-xhdpi/ssdk_oks_logo_kakaostory.png" target-dir="res/drawable-xhdpi" />
+        <source-file src="src/android/ShareSDK/res/drawable-xhdpi/ssdk_oks_logo_kakaotalk.png" target-dir="res/drawable-xhdpi" />
+        <source-file src="src/android/ShareSDK/res/drawable-xhdpi/ssdk_oks_logo_laiwang.png" target-dir="res/drawable-xhdpi" />
+        <source-file src="src/android/ShareSDK/res/drawable-xhdpi/ssdk_oks_logo_laiwangmoments.png" target-dir="res/drawable-xhdpi" />
+        <source-file src="src/android/ShareSDK/res/drawable-xhdpi/ssdk_oks_logo_line.png" target-dir="res/drawable-xhdpi" />
+        <source-file src="src/android/ShareSDK/res/drawable-xhdpi/ssdk_oks_logo_linkedin.png" target-dir="res/drawable-xhdpi" />
+        <source-file src="src/android/ShareSDK/res/drawable-xhdpi/ssdk_oks_logo_mingdao.png" target-dir="res/drawable-xhdpi" />
+        <source-file src="src/android/ShareSDK/res/drawable-xhdpi/ssdk_oks_logo_pinterest.png" target-dir="res/drawable-xhdpi" />
+        <source-file src="src/android/ShareSDK/res/drawable-xhdpi/ssdk_oks_logo_pocket.png" target-dir="res/drawable-xhdpi" />
+        <source-file src="src/android/ShareSDK/res/drawable-xhdpi/ssdk_oks_logo_qq.png" target-dir="res/drawable-xhdpi" />
+        <source-file src="src/android/ShareSDK/res/drawable-xhdpi/ssdk_oks_logo_qzone.png" target-dir="res/drawable-xhdpi" />
+        <source-file src="src/android/ShareSDK/res/drawable-xhdpi/ssdk_oks_logo_renren.png" target-dir="res/drawable-xhdpi" />
+        <source-file src="src/android/ShareSDK/res/drawable-xhdpi/ssdk_oks_logo_shortmessage.png" target-dir="res/drawable-xhdpi" />
+        <source-file src="src/android/ShareSDK/res/drawable-xhdpi/ssdk_oks_logo_sinaweibo.png" target-dir="res/drawable-xhdpi" />
+        <source-file src="src/android/ShareSDK/res/drawable-xhdpi/ssdk_oks_logo_sohusuishenkan.png" target-dir="res/drawable-xhdpi" />
+        <source-file src="src/android/ShareSDK/res/drawable-xhdpi/ssdk_oks_logo_tencentweibo.png" target-dir="res/drawable-xhdpi" />
+        <source-file src="src/android/ShareSDK/res/drawable-xhdpi/ssdk_oks_logo_tumblr.png" target-dir="res/drawable-xhdpi" />
+        <source-file src="src/android/ShareSDK/res/drawable-xhdpi/ssdk_oks_logo_twitter.png" target-dir="res/drawable-xhdpi" />
+        <source-file src="src/android/ShareSDK/res/drawable-xhdpi/ssdk_oks_logo_vkontakte.png" target-dir="res/drawable-xhdpi" />
+        <source-file src="src/android/ShareSDK/res/drawable-xhdpi/ssdk_oks_logo_wechat.png" target-dir="res/drawable-xhdpi" />
+        <source-file src="src/android/ShareSDK/res/drawable-xhdpi/ssdk_oks_logo_wechatfavorite.png" target-dir="res/drawable-xhdpi" />
+        <source-file src="src/android/ShareSDK/res/drawable-xhdpi/ssdk_oks_logo_wechatmoments.png" target-dir="res/drawable-xhdpi" />
+        <source-file src="src/android/ShareSDK/res/drawable-xhdpi/ssdk_oks_logo_whatsapp.png" target-dir="res/drawable-xhdpi" />
+        <source-file src="src/android/ShareSDK/res/drawable-xhdpi/ssdk_oks_logo_yixin.png" target-dir="res/drawable-xhdpi" />
+        <source-file src="src/android/ShareSDK/res/drawable-xhdpi/ssdk_oks_logo_yixinmoments.png" target-dir="res/drawable-xhdpi" />
+        <source-file src="src/android/ShareSDK/res/drawable-xhdpi/ssdk_oks_logo_youdao.png" target-dir="res/drawable-xhdpi" />
+        <source-file src="src/android/ShareSDK/res/drawable-xhdpi/ssdk_oks_pin.png" target-dir="res/drawable-xhdpi" />
+        <source-file src="src/android/ShareSDK/res/drawable-xhdpi/ssdk_oks_shake_to_share_back.xml" target-dir="res/drawable-xhdpi" />
+        <source-file src="src/android/ShareSDK/res/drawable-xhdpi/ssdk_oks_skyblue_actionbar_back_btn.png" target-dir="res/drawable-xhdpi" />
+        <source-file src="src/android/ShareSDK/res/drawable-xhdpi/ssdk_oks_skyblue_actionbar_ok_btn.png" target-dir="res/drawable-xhdpi" />
+        <source-file src="src/android/ShareSDK/res/drawable-xhdpi/ssdk_oks_skyblue_editpage_bg.9.png" target-dir="res/drawable-xhdpi" />
+        <source-file src="src/android/ShareSDK/res/drawable-xhdpi/ssdk_oks_skyblue_editpage_close.png" target-dir="res/drawable-xhdpi" />
+        <source-file src="src/android/ShareSDK/res/drawable-xhdpi/ssdk_oks_skyblue_editpage_divider.9.png" target-dir="res/drawable-xhdpi" />
+        <source-file src="src/android/ShareSDK/res/drawable-xhdpi/ssdk_oks_skyblue_editpage_image_bg.9.png" target-dir="res/drawable-xhdpi" />
+        <source-file src="src/android/ShareSDK/res/drawable-xhdpi/ssdk_oks_skyblue_editpage_image_remove.png" target-dir="res/drawable-xhdpi" />
+        <source-file src="src/android/ShareSDK/res/drawable-xhdpi/ssdk_oks_skyblue_logo_alipayshare.png" target-dir="res/drawable-xhdpi" />
+        <source-file src="src/android/ShareSDK/res/drawable-xhdpi/ssdk_oks_skyblue_logo_alipayshare_checked.png" target-dir="res/drawable-xhdpi" />
+        <source-file src="src/android/ShareSDK/res/drawable-xhdpi/ssdk_oks_skyblue_logo_baidutieba.png" target-dir="res/drawable-xhdpi" />
+        <source-file src="src/android/ShareSDK/res/drawable-xhdpi/ssdk_oks_skyblue_logo_baidutieba_checked.png" target-dir="res/drawable-xhdpi" />
+        <source-file src="src/android/ShareSDK/res/drawable-xhdpi/ssdk_oks_skyblue_logo_bluetooth.png" target-dir="res/drawable-xhdpi" />
+        <source-file src="src/android/ShareSDK/res/drawable-xhdpi/ssdk_oks_skyblue_logo_bluetooth_checked.png" target-dir="res/drawable-xhdpi" />
+        <source-file src="src/android/ShareSDK/res/drawable-xhdpi/ssdk_oks_skyblue_logo_douban.png" target-dir="res/drawable-xhdpi" />
+        <source-file src="src/android/ShareSDK/res/drawable-xhdpi/ssdk_oks_skyblue_logo_douban_checked.png" target-dir="res/drawable-xhdpi" />
+        <source-file src="src/android/ShareSDK/res/drawable-xhdpi/ssdk_oks_skyblue_logo_dropbox.png" target-dir="res/drawable-xhdpi" />
+        <source-file src="src/android/ShareSDK/res/drawable-xhdpi/ssdk_oks_skyblue_logo_dropbox_checked.png" target-dir="res/drawable-xhdpi" />
+        <source-file src="src/android/ShareSDK/res/drawable-xhdpi/ssdk_oks_skyblue_logo_email.png" target-dir="res/drawable-xhdpi" />
+        <source-file src="src/android/ShareSDK/res/drawable-xhdpi/ssdk_oks_skyblue_logo_email_checked.png" target-dir="res/drawable-xhdpi" />
+        <source-file src="src/android/ShareSDK/res/drawable-xhdpi/ssdk_oks_skyblue_logo_evernote.png" target-dir="res/drawable-xhdpi" />
+        <source-file src="src/android/ShareSDK/res/drawable-xhdpi/ssdk_oks_skyblue_logo_evernote_checked.png" target-dir="res/drawable-xhdpi" />
+        <source-file src="src/android/ShareSDK/res/drawable-xhdpi/ssdk_oks_skyblue_logo_facebook.png" target-dir="res/drawable-xhdpi" />
+        <source-file src="src/android/ShareSDK/res/drawable-xhdpi/ssdk_oks_skyblue_logo_facebook_checked.png" target-dir="res/drawable-xhdpi" />
+        <source-file src="src/android/ShareSDK/res/drawable-xhdpi/ssdk_oks_skyblue_logo_facebookmessenger.png" target-dir="res/drawable-xhdpi" />
+        <source-file src="src/android/ShareSDK/res/drawable-xhdpi/ssdk_oks_skyblue_logo_facebookmessenger_checked.png" target-dir="res/drawable-xhdpi" />
+        <source-file src="src/android/ShareSDK/res/drawable-xhdpi/ssdk_oks_skyblue_logo_flickr.png" target-dir="res/drawable-xhdpi" />
+        <source-file src="src/android/ShareSDK/res/drawable-xhdpi/ssdk_oks_skyblue_logo_flickr_checked.png" target-dir="res/drawable-xhdpi" />
+        <source-file src="src/android/ShareSDK/res/drawable-xhdpi/ssdk_oks_skyblue_logo_foursquare.png" target-dir="res/drawable-xhdpi" />
+        <source-file src="src/android/ShareSDK/res/drawable-xhdpi/ssdk_oks_skyblue_logo_foursquare_checked.png" target-dir="res/drawable-xhdpi" />
+        <source-file src="src/android/ShareSDK/res/drawable-xhdpi/ssdk_oks_skyblue_logo_googleplus.png" target-dir="res/drawable-xhdpi" />
+        <source-file src="src/android/ShareSDK/res/drawable-xhdpi/ssdk_oks_skyblue_logo_googleplus_checked.png" target-dir="res/drawable-xhdpi" />
+        <source-file src="src/android/ShareSDK/res/drawable-xhdpi/ssdk_oks_skyblue_logo_instagram.png" target-dir="res/drawable-xhdpi" />
+        <source-file src="src/android/ShareSDK/res/drawable-xhdpi/ssdk_oks_skyblue_logo_instagram_checked.png" target-dir="res/drawable-xhdpi" />
+        <source-file src="src/android/ShareSDK/res/drawable-xhdpi/ssdk_oks_skyblue_logo_instapaper.png" target-dir="res/drawable-xhdpi" />
+        <source-file src="src/android/ShareSDK/res/drawable-xhdpi/ssdk_oks_skyblue_logo_instapaper_checked.png" target-dir="res/drawable-xhdpi" />
+        <source-file src="src/android/ShareSDK/res/drawable-xhdpi/ssdk_oks_skyblue_logo_kaixin.png" target-dir="res/drawable-xhdpi" />
+        <source-file src="src/android/ShareSDK/res/drawable-xhdpi/ssdk_oks_skyblue_logo_kaixin_checked.png" target-dir="res/drawable-xhdpi" />
+        <source-file src="src/android/ShareSDK/res/drawable-xhdpi/ssdk_oks_skyblue_logo_kakaostory.png" target-dir="res/drawable-xhdpi" />
+        <source-file src="src/android/ShareSDK/res/drawable-xhdpi/ssdk_oks_skyblue_logo_kakaostory_checked.png" target-dir="res/drawable-xhdpi" />
+        <source-file src="src/android/ShareSDK/res/drawable-xhdpi/ssdk_oks_skyblue_logo_kakaotalk.png" target-dir="res/drawable-xhdpi" />
+        <source-file src="src/android/ShareSDK/res/drawable-xhdpi/ssdk_oks_skyblue_logo_kakaotalk_checked.png" target-dir="res/drawable-xhdpi" />
+        <source-file src="src/android/ShareSDK/res/drawable-xhdpi/ssdk_oks_skyblue_logo_laiwangmoments.png" target-dir="res/drawable-xhdpi" />
+        <source-file src="src/android/ShareSDK/res/drawable-xhdpi/ssdk_oks_skyblue_logo_laiwangmoments_checked.png" target-dir="res/drawable-xhdpi" />
+        <source-file src="src/android/ShareSDK/res/drawable-xhdpi/ssdk_oks_skyblue_logo_line.png" target-dir="res/drawable-xhdpi" />
+        <source-file src="src/android/ShareSDK/res/drawable-xhdpi/ssdk_oks_skyblue_logo_line_checked.png" target-dir="res/drawable-xhdpi" />
+        <source-file src="src/android/ShareSDK/res/drawable-xhdpi/ssdk_oks_skyblue_logo_linkedin.png" target-dir="res/drawable-xhdpi" />
+        <source-file src="src/android/ShareSDK/res/drawable-xhdpi/ssdk_oks_skyblue_logo_linkedin_checked.png" target-dir="res/drawable-xhdpi" />
+        <source-file src="src/android/ShareSDK/res/drawable-xhdpi/ssdk_oks_skyblue_logo_mingdao.png" target-dir="res/drawable-xhdpi" />
+        <source-file src="src/android/ShareSDK/res/drawable-xhdpi/ssdk_oks_skyblue_logo_mingdao_checked.png" target-dir="res/drawable-xhdpi" />
+        <source-file src="src/android/ShareSDK/res/drawable-xhdpi/ssdk_oks_skyblue_logo_neteasemicroblog.png" target-dir="res/drawable-xhdpi" />
+        <source-file src="src/android/ShareSDK/res/drawable-xhdpi/ssdk_oks_skyblue_logo_neteasemicroblog_checked.png" target-dir="res/drawable-xhdpi" />
+        <source-file src="src/android/ShareSDK/res/drawable-xhdpi/ssdk_oks_skyblue_logo_pinterest.png" target-dir="res/drawable-xhdpi" />
+        <source-file src="src/android/ShareSDK/res/drawable-xhdpi/ssdk_oks_skyblue_logo_pinterest_checked.png" target-dir="res/drawable-xhdpi" />
+        <source-file src="src/android/ShareSDK/res/drawable-xhdpi/ssdk_oks_skyblue_logo_pocket.png" target-dir="res/drawable-xhdpi" />
+        <source-file src="src/android/ShareSDK/res/drawable-xhdpi/ssdk_oks_skyblue_logo_pocket_checked.png" target-dir="res/drawable-xhdpi" />
+        <source-file src="src/android/ShareSDK/res/drawable-xhdpi/ssdk_oks_skyblue_logo_qq.png" target-dir="res/drawable-xhdpi" />
+        <source-file src="src/android/ShareSDK/res/drawable-xhdpi/ssdk_oks_skyblue_logo_qq_checked.png" target-dir="res/drawable-xhdpi" />
+        <source-file src="src/android/ShareSDK/res/drawable-xhdpi/ssdk_oks_skyblue_logo_qzone.png" target-dir="res/drawable-xhdpi" />
+        <source-file src="src/android/ShareSDK/res/drawable-xhdpi/ssdk_oks_skyblue_logo_qzone_checked.png" target-dir="res/drawable-xhdpi" />
+        <source-file src="src/android/ShareSDK/res/drawable-xhdpi/ssdk_oks_skyblue_logo_renren.png" target-dir="res/drawable-xhdpi" />
+        <source-file src="src/android/ShareSDK/res/drawable-xhdpi/ssdk_oks_skyblue_logo_renren_checked.png" target-dir="res/drawable-xhdpi" />
+        <source-file src="src/android/ShareSDK/res/drawable-xhdpi/ssdk_oks_skyblue_logo_shortmessage.png" target-dir="res/drawable-xhdpi" />
+        <source-file src="src/android/ShareSDK/res/drawable-xhdpi/ssdk_oks_skyblue_logo_shortmessage_checked.png" target-dir="res/drawable-xhdpi" />
+        <source-file src="src/android/ShareSDK/res/drawable-xhdpi/ssdk_oks_skyblue_logo_sinaweibo.png" target-dir="res/drawable-xhdpi" />
+        <source-file src="src/android/ShareSDK/res/drawable-xhdpi/ssdk_oks_skyblue_logo_sinaweibo_checked.png" target-dir="res/drawable-xhdpi" />
+        <source-file src="src/android/ShareSDK/res/drawable-xhdpi/ssdk_oks_skyblue_logo_sohumicroblog.png" target-dir="res/drawable-xhdpi" />
+        <source-file src="src/android/ShareSDK/res/drawable-xhdpi/ssdk_oks_skyblue_logo_sohumicroblog_checked.png" target-dir="res/drawable-xhdpi" />
+        <source-file src="src/android/ShareSDK/res/drawable-xhdpi/ssdk_oks_skyblue_logo_sohusuishenkan.png" target-dir="res/drawable-xhdpi" />
+        <source-file src="src/android/ShareSDK/res/drawable-xhdpi/ssdk_oks_skyblue_logo_sohusuishenkan_checked.png" target-dir="res/drawable-xhdpi" />
+        <source-file src="src/android/ShareSDK/res/drawable-xhdpi/ssdk_oks_skyblue_logo_tencentweibo.png" target-dir="res/drawable-xhdpi" />
+        <source-file src="src/android/ShareSDK/res/drawable-xhdpi/ssdk_oks_skyblue_logo_tencentweibo_checked.png" target-dir="res/drawable-xhdpi" />
+        <source-file src="src/android/ShareSDK/res/drawable-xhdpi/ssdk_oks_skyblue_logo_tumblr.png" target-dir="res/drawable-xhdpi" />
+        <source-file src="src/android/ShareSDK/res/drawable-xhdpi/ssdk_oks_skyblue_logo_tumblr_checked.png" target-dir="res/drawable-xhdpi" />
+        <source-file src="src/android/ShareSDK/res/drawable-xhdpi/ssdk_oks_skyblue_logo_twitter.png" target-dir="res/drawable-xhdpi" />
+        <source-file src="src/android/ShareSDK/res/drawable-xhdpi/ssdk_oks_skyblue_logo_twitter_checked.png" target-dir="res/drawable-xhdpi" />
+        <source-file src="src/android/ShareSDK/res/drawable-xhdpi/ssdk_oks_skyblue_logo_vkontakte.png" target-dir="res/drawable-xhdpi" />
+        <source-file src="src/android/ShareSDK/res/drawable-xhdpi/ssdk_oks_skyblue_logo_vkontakte_checked.png" target-dir="res/drawable-xhdpi" />
+        <source-file src="src/android/ShareSDK/res/drawable-xhdpi/ssdk_oks_skyblue_logo_wechat.png" target-dir="res/drawable-xhdpi" />
+        <source-file src="src/android/ShareSDK/res/drawable-xhdpi/ssdk_oks_skyblue_logo_wechat_checked.png" target-dir="res/drawable-xhdpi" />
+        <source-file src="src/android/ShareSDK/res/drawable-xhdpi/ssdk_oks_skyblue_logo_wechatfavorite.png" target-dir="res/drawable-xhdpi" />
+        <source-file src="src/android/ShareSDK/res/drawable-xhdpi/ssdk_oks_skyblue_logo_wechatfavorite_checked.png" target-dir="res/drawable-xhdpi" />
+        <source-file src="src/android/ShareSDK/res/drawable-xhdpi/ssdk_oks_skyblue_logo_wechatmoments.png" target-dir="res/drawable-xhdpi" />
+        <source-file src="src/android/ShareSDK/res/drawable-xhdpi/ssdk_oks_skyblue_logo_wechatmoments_checked.png" target-dir="res/drawable-xhdpi" />
+        <source-file src="src/android/ShareSDK/res/drawable-xhdpi/ssdk_oks_skyblue_logo_whatsapp.png" target-dir="res/drawable-xhdpi" />
+        <source-file src="src/android/ShareSDK/res/drawable-xhdpi/ssdk_oks_skyblue_logo_whatsapp_checked.png" target-dir="res/drawable-xhdpi" />
+        <source-file src="src/android/ShareSDK/res/drawable-xhdpi/ssdk_oks_skyblue_logo_yixin.png" target-dir="res/drawable-xhdpi" />
+        <source-file src="src/android/ShareSDK/res/drawable-xhdpi/ssdk_oks_skyblue_logo_yixin_checked.png" target-dir="res/drawable-xhdpi" />
+        <source-file src="src/android/ShareSDK/res/drawable-xhdpi/ssdk_oks_skyblue_logo_yixinmoments.png" target-dir="res/drawable-xhdpi" />
+        <source-file src="src/android/ShareSDK/res/drawable-xhdpi/ssdk_oks_skyblue_logo_yixinmoments_checked.png" target-dir="res/drawable-xhdpi" />
+        <source-file src="src/android/ShareSDK/res/drawable-xhdpi/ssdk_oks_skyblue_logo_youdao.png" target-dir="res/drawable-xhdpi" />
+        <source-file src="src/android/ShareSDK/res/drawable-xhdpi/ssdk_oks_skyblue_logo_youdao_checked.png" target-dir="res/drawable-xhdpi" />
+        <source-file src="src/android/ShareSDK/res/drawable-xhdpi/ssdk_oks_skyblue_platform_checked.png" target-dir="res/drawable-xhdpi" />
+        <source-file src="src/android/ShareSDK/res/drawable-xhdpi/ssdk_oks_skyblue_platform_checked_disabled.png" target-dir="res/drawable-xhdpi" />
+        <source-file src="src/android/ShareSDK/res/drawable-xhdpi/ssdk_oks_title_back.png" target-dir="res/drawable-xhdpi" />
+        <source-file src="src/android/ShareSDK/res/drawable-xhdpi/ssdk_oks_title_shadow.png" target-dir="res/drawable-xhdpi" />
+        <source-file src="src/android/ShareSDK/res/drawable-xhdpi/ssdk_oks_yaoyiyao.png" target-dir="res/drawable-xhdpi" />
+        <source-file src="src/android/ShareSDK/res/drawable-xhdpi/ssdk_title_div.png" target-dir="res/drawable-xhdpi" />
+
+        <source-file src="src/android/ShareSDK/res/layout/ssdk_oks_skyblue_editpage.xml" target-dir="res/layout" />
+        <source-file src="src/android/ShareSDK/res/layout/ssdk_oks_skyblue_editpage_at_layout.xml" target-dir="res/layout" />
+        <source-file src="src/android/ShareSDK/res/layout/ssdk_oks_skyblue_editpage_inc_image_layout.xml" target-dir="res/layout" />
+        <source-file src="src/android/ShareSDK/res/layout/ssdk_oks_skyblue_share_actionbar.xml" target-dir="res/layout" />
+        <source-file src="src/android/ShareSDK/res/layout/ssdk_oks_skyblue_share_platform_list.xml" target-dir="res/layout" />
+        <source-file src="src/android/ShareSDK/res/layout/ssdk_oks_skyblue_share_platform_list_item.xml" target-dir="res/layout" />
+
+        <source-file src="src/android/ShareSDK/res/values/ssdk_instapaper_strings.xml" target-dir="res/values" />
+        <source-file src="src/android/ShareSDK/res/values/ssdk_oks_strings.xml" target-dir="res/values" />
+        <source-file src="src/android/ShareSDK/res/values/ssdk_strings.xml" target-dir="res/values" />
+
+        <source-file src="src/android/ShareSDK/res/values-en/ssdk_oks_strings.xml" target-dir="res/values-en" />
+        <source-file src="src/android/ShareSDK/res/values-en/ssdk_strings.xml" target-dir="res/values-en" />
+    </platform>
+
     <platform name="ios">
         <config-file target="config.xml" parent="/*">
             <feature name="ShareSDK">
@@ -56,16 +375,7 @@
                 </dict>
             </array>
         </config-file>
-<!-- 
-        <config-file target="*-Info.plist" parent="NSAppTransportSecurity">
 
-            <dict>
-                <key>NSAllowsArbitraryLoads</key>
-                <true/>
-            </dict>
-
-        </config-file>
- -->
         <config-file target="*-Info.plist" parent="LSApplicationQueriesSchemes">
 
             <array>
