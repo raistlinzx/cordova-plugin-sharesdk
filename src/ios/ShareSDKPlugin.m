@@ -108,5 +108,19 @@
 
 
 }
+
+
+- (void)handleOpenURL:(NSNotification*)notification
+{
+    // override to handle urls sent to your app
+    // register your url schemes in your App-Info.plist
+    NSURL* url = [notification object];
+    if ([url isKindOfClass:[NSURL class]]) {
+        /* Do your thing! */
+        NSLog([NSString stringWithFormat:@"%@", url]);
+        [ShareSDK handleOpenURL:url wxDelegate:self];
+    }
+}
+
 @end
 
