@@ -1,16 +1,16 @@
 
 # 安装
 ```sh
-ionic plugin add http://git.qiyestore.com/zhuanmi/cordova-plugin-sharesdk.git \
-	--variable SHARESDKAPPKEY=f2629488c78c \
-	--variable QQAPPID=1105143220 \
-	--variable QQAPPKEY=vBktd0sFOFLLkpLP \
-	--variable WECHATAPPID=wx739a973d597b2a12 \
-	--variable WECHATAPPSECRET=4eec3804ec8f4fbbed2959e8c210fc42 \
-	--variable QQURLSCHEME=QQ41DF25B4 \
-	--variable WBAPPKEY=4289465453 \
-	--variable WBAPPSECRET=de2069dd056a313b76306ee376eecc0f \
-	--variable WBREDIRECTURL=http://www.zhuanmi.cc
+ionic plugin add https://github.com/raistlinzx/cordova-plugin-sharesdk.git \
+	--variable SHARESDKAPPKEY=<你的ShareSDK App Key> \
+	--variable QQAPPID=<QQ App Id> \
+	--variable QQAPPKEY=<QQ App Key> \
+	--variable WECHATAPPID=<WeChat App Id> \
+	--variable WECHATAPPSECRET=<WeChat App Secret> \
+	--variable QQURLSCHEME=<QQ Url Scheme For iOS Only> \
+	--variable WBAPPKEY=<SinaWeibo App Key> \
+	--variable WBAPPSECRET=<SinaWeibo App Secret> \
+	--variable WBREDIRECTURL=<SinaWeibo Redirect Url>
 ```
 
 |参数|说明|
