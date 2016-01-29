@@ -11,9 +11,9 @@ module.exports = function(context) {
  	var packageName = cfg.packageName();
  	
  	var wxapiPath = context.opts.projectRoot + '/platforms/android/src/' + packageName.replace(/\./g, '/') + '/wxapi';
- 	var WXEntryActivityPath = context.opts.projectRoot + '/plugins/com.ryanzx.cordova.plugin.sharesdk/src/android/WXEntryActivity.java';
+ 	var WXEntryActivityPath = wxapiPath + '/WXEntryActivity.java';
 
- 	fs.readFile(WXEntryActivityPath, 'utf8', function(err, data) {
+ 	fs.readFile(context.opts.projectRoot + '/plugins/com.ryanzx.cordova.plugin.sharesdk/src/android/WXEntryActivity.java', 'utf8', function(err, data) {
  		if(err) throw err;
  		var result = data.replace(/PACKAGENAME/g, packageName);
  		fs.exists(wxapiPath, function(exists) {
