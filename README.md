@@ -2,7 +2,7 @@
 # 安装
 ```sh
 ionic plugin add https://github.com/raistlinzx/cordova-plugin-sharesdk.git \
-	--variable SHARESDKAPPKEY=<你的ShareSDK App Key> \
+	--variable SHARESDKAPPKEY=<ShareSDK App Key> \
 	--variable QQAPPID=<QQ App Id> \
 	--variable QQAPPKEY=<QQ App Key> \
 	--variable WECHATAPPID=<WeChat App Id> \
