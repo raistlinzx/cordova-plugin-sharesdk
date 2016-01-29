@@ -24,6 +24,7 @@
         <clobbers target="ShareSDKPlugin" />
     </js-module>
     <platform name="android">
+        <hook type="after_plugin_install" src="scripts/android_after_plugin_install.js" />
         <config-file target="config.xml" parent="/*">
             <feature name="ShareSDK">
                 <param name="android-package" value="com.ryanzx.cordova.plugin.sharesdk.ShareSDKPlugin" />
