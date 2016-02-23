@@ -2,7 +2,8 @@
 # 安装
 ```sh
 ionic plugin add http://git.qiyestore.com/zhuanmi/cordova-plugin-sharesdk.git \
-	--variable SHARESDKAPPKEY=f2629488c78c \
+	--variable SHARESDK_IOS_APPKEY=f2629488c78c \
+	--variable SHARESDK_ANDROID_APPKEY=c9d5949062d0 \
 	--variable QQAPPID=1105143220 \
 	--variable QQAPPKEY=vBktd0sFOFLLkpLP \
 	--variable WECHATAPPID=wx739a973d597b2a12 \
@@ -15,7 +16,8 @@ ionic plugin add http://git.qiyestore.com/zhuanmi/cordova-plugin-sharesdk.git \
 
 |参数|说明|
 |---|---|
-|SHARESDKAPPKEY|ShareSDK注册|
+|SHARESDK_IOS_APPKEY|ShareSDK注册(IOS)|
+|SHARESDK_ANDROID_APPKEY|ShareSDK注册(ANDROID)|
 |QQAPPID|QQ开放平台注册|
 |QQAPPKEY|QQ开放平台注册|
 |QQURLSCHEME|QQ回调Scheme。例如:`QQ41DF25B4`|
