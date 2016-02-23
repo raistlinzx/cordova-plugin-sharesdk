@@ -7,7 +7,7 @@ ionic plugin add http://git.qiyestore.com/zhuanmi/cordova-plugin-sharesdk.git \
 	--variable QQAPPID=1105143220 \
 	--variable QQAPPKEY=vBktd0sFOFLLkpLP \
 	--variable WECHATAPPID=wx739a973d597b2a12 \
-	--variable WECHATAPPSECRET=4eec3804ec8f4fbbed2959e8c210fc42 \
+	--variable WECHATAPPSECRET=cdb610212b82acd8b9ce998a5b7e9619 \
 	--variable QQURLSCHEME=QQ41DF25B4 \
 	--variable WBAPPKEY=4289465453 \
 	--variable WBAPPSECRET=de2069dd056a313b76306ee376eecc0f \
