@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<plugin id="com.ryanzx.cordova.plugin.sharesdk" version="0.0.1" 
+<plugin id="com.ryanzx.cordova.plugin.sharesdk" version="0.0.1"
         xmlns="http://apache.org/cordova/ns/plugins/1.0"
         xmlns:android="http://schemas.android.com/apk/res/android">
     <name>ShareSDKPlugin</name>
     <description>ShareSDKPlugin</description>
     <!-- add this to your config.xml -->
     <!-- <preference name="WECHATAPPID" value="YOUR_WECHAT_APP_ID_HERE" /> -->
-    <preference name="SHARESDKAPPKEY" />
+    <preference name="SHARESDK_IOS_APPKEY" />
+    <preference name="SHARESDK_ANDROID_APPKEY" />
     <preference name="WECHATAPPID" />
     <preference name="WECHATAPPSECRET" />
     <preference name="QQAPPID" />
@@ -49,8 +50,8 @@
         <source-file src="src/android/ShareSDK.xml" target-dir="assets" />
 
         <config-file target="assets/ShareSDK.xml" parent="/DevInfor">
-            <ShareSDK AppKey = "$SHARESDKAPPKEY"/> <!-- 修改成你在sharesdk后台注册的应用的appkey"-->
-            
+            <ShareSDK AppKey = "$SHARESDK_ANDROID_APPKEY"/> <!-- 修改成你在sharesdk后台注册的应用的appkey"-->
+
             <!-- ShareByAppClient标识是否使用微博客户端分享，默认是false -->
             <SinaWeibo
                 Id="1"
@@ -69,7 +70,7 @@
                 AppKey="$QQAPPKEY"
                 ShareByAppClient="false"
                 Enable="true" />
-         
+
             <Wechat
                 Id="4"
                 SortId="2"
@@ -77,7 +78,7 @@
                 AppSecret="$WECHATAPPSECRET"
                 BypassApproval="false"
                 Enable="true" />
-            
+
             <WechatMoments
                 Id="5"
                 SortId="3"
@@ -85,14 +86,14 @@
                 AppSecret="$WECHATAPPSECRET"
                 BypassApproval="false"
                 Enable="true" />
-                
+
             <WechatFavorite
                 Id="6"
                 SortId="6"
                 AppId="$WECHATAPPID"
                 AppSecret="$WECHATAPPSECRET"
                 Enable="false" />
-            
+
             <!-- ShareByAppClient标识是否使用微博客户端分享，默认是false -->
             <QQ
                 Id="7"
@@ -131,7 +132,7 @@
                 android:theme="@android:style/Theme.Translucent.NoTitleBar"
                 android:configChanges="keyboardHidden|orientation|screenSize"
                 android:exported="true"
-                android:screenOrientation="portrait" /> 
+                android:screenOrientation="portrait" />
         </config-file>
 
         <!-- ShareSDK Libs -->
@@ -175,7 +176,7 @@
         <source-file src="src/android/ShareSDK/res/drawable/ssdk_oks_skyblue_platform_list_item.xml" target-dir="res/drawable" />
         <source-file src="src/android/ShareSDK/res/drawable/ssdk_oks_skyblue_platform_list_item_selected.xml" target-dir="res/drawable" />
         <source-file src="src/android/ShareSDK/res/drawable/ssdk_oks_skyblue_platform_list_selector.xml" target-dir="res/drawable" />
-        
+
         <source-file src="src/android/ShareSDK/res/drawable-hdpi/ssdk_oks_ptr_ptr.png" target-dir="res/drawable-hdpi" />
 
         <source-file src="src/android/ShareSDK/res/drawable-xhdpi/ssdk_auth_title_back.png" target-dir="res/drawable-xhdpi" />
@@ -349,7 +350,7 @@
             <feature name="ShareSDK">
                 <param name="ios-package" value="ShareSDKPlugin" />
             </feature>
-            <preference name="SHARESDKAPPKEY" value="$SHARESDKAPPKEY"/>
+            <preference name="SHARESDKAPPKEY" value="$SHARESDK_IOS_APPKEY"/>
             <preference name="WECHATAPPID" value="$WECHATAPPID"/>
             <preference name="WECHATAPPSECRET" value="$WECHATAPPSECRET"/>
             <preference name="QQAPPID" value="$QQAPPID"/>
